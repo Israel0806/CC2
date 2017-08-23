@@ -9,7 +9,7 @@ int dias[]= {31,28,31,30,31,30,31,31,30,31,30,31};
 
 long long int segundos;
 long long int minutos, horas;
-float semanas,anhos;
+float semanas,anhos,meses;
 
 int FechaJuliana(int Y, int M, int D)
 {
@@ -32,7 +32,11 @@ int main (){
 	}
 	cout<<"-Dia: "; cin >> dia1;
 	//Comprobar Dia
-	while( (dia1<1 or dia1>31) or ((mes1==4 or mes1==6 or mes1==9 or mes1==11) and (dia1<1 or dia1>31)) or (mes1==2 and(dia1<1 or dia1>28)))
+	int bisciesto=28;
+    if( anho1%4==0 and (anho1%100!=0 or anho1%400==0))
+        bisciesto=29;
+
+    while( (dia1<1 or dia1>31) or ((mes1==4 or mes1==6 or mes1==9 or mes1==11) and (dia1<1 or dia1>30)) or (mes1==2 and(dia1<1 or dia1>bisciesto)))
 	{
 		cout<<"Ingrese el dia correcto\n";
 		cin>>dia1;
@@ -49,7 +53,12 @@ int main (){
 	}
 	cout<<"-Dia: "; cin >> dia2;
 	//Comprobar Dia
-	while( (dia2<1 or dia2>31) or ((mes2==4 or mes2==6 or mes2==9 or mes2==11) and (dia2<1 or dia2>31)) or (mes2==2 and(dia2<1 or dia2>28)))
+
+    bisciesto = 28;
+    if( anho1%4==0 and (anho1%100!=0 or anho1%400==0))
+        bisciesto=29;
+
+    while( (dia1<1 or dia1>31) or ((mes1==4 or mes1==6 or mes1==9 or mes1==11) and (dia1<1 or dia1>30)) or (mes1==2 and(dia1<1 or dia1>bisciesto)))
 	{
 		cout<<"Ingrese el dia correcto\n";
 		cin>>dia2;
@@ -60,6 +69,7 @@ int main (){
 	int Dias=Fin-Inicio+1;
 	horas=24*Dias;
 	minutos=horas*60;
+
 	segundos=minutos*60;
 
     //Calcular semanas
@@ -71,13 +81,23 @@ int main (){
 	}
 	semanas+=temp/7;
 
+	//Calcular meses ACHEDEPE
+
+
+
+
+
+
     //Calcular años
 	temp=Dias;
 	while(temp-366>0)
 	{
+
+
 		anhos++;
 		temp-=366;
 	}
+	meses = (Dias)/30;
 	anhos+=temp/365;
 	semanas+=temp/7;
 
@@ -86,7 +106,7 @@ int main (){
     //Output
 	cout<<"Numero de dias:    "       <<Dias      <<endl
 		<<"Numero de semanas: "       <<semanas   <<endl
-		<<"Numero de meses:   "                   <<endl
+		<<"Numero de meses:   "       <<meses            <<endl
 		<<"Numero de anhos:    "      <<anhos     <<endl<<endl
 		<<"\nSegundos transcurridos: "<< segundos <<endl
 		<<"\nMinutos transcurridos "  << minutos  <<endl
