@@ -1,10 +1,5 @@
 # depslib dependency file v1.0
-1503421374 source:c:\users\israe\desktop\semestre iii\cc ii\trabajos\ejercicio1\main.cpp
-	<iostream>
-	<vector>
-	<sstream>
-
-1503451344 source:c:\users\wair.esp\desktop\cc2\ejercicio1\main.cpp
+1503449363 source:c:\users\israe\desktop\semestre iii\cc ii\trabajos\ejercicio1\main.cpp
 	<iostream>
 	<vector>
 	<sstream>
