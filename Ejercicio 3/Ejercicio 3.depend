@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1503541924 source:c:\users\israe\desktop\semestre iii\cc ii\pruebas\ejercicio 3\main.cpp
+	<iostream>
+	<math.h>
+	<vector>
+
