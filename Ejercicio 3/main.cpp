@@ -71,8 +71,13 @@ public:
     Modulo() {}
     Modulo(int _a, int _b) :a(_a), b(_b) {}
     Modulo(const Modulo &A) { a=A.a; b=A.b; }
+
     int getA() { return a; }
     int getB() { return b; }
+    void setA(int a) { this->a=a; }
+    void setB(int b) { this->b=b; }
+
+    friend void calcular(int &a, int &b);
 
     friend Modulo operator +(Modulo A, Modulo B)
     {
@@ -112,7 +117,12 @@ public:
 
 int main()
 {
-    Modulo a(29,256), b(40,6);
+    Modulo a(-2,6), b(40,6);
+    int c=a.getA(), d=a.getB();
+    calcular(c,d);
+    a.setA(c);
+    a.setB(d);
+    cout<<a.getA()<<"mod"<<a.getB()<<endl;
     a.Inverso();
 
     return 0;
