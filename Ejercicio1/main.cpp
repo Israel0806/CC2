@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <sstream>
+#include <math.h>
 
 using namespace std;
 
@@ -86,26 +87,45 @@ int main (){
 
 	//Calcular meses
 
-
+    int anhos2=anho2-anho1;
 
     //Calcular años
 	temp=Dias;
-	while(temp-366>0)
+	int bis=0;
+	cout<<"1: "<<anho1<<" 2: "<<anho2<<endl;
+	while(anho1!=anho2)
+    {
+        if( anho1%4==0 and (anho1%100!=0 or anho1%400==0) )
+        {
+            bis++;
+        }
+        anho1++;
+    }
+
+    cout<<endl<<"bis: "<<bis<<endl<<endl;
+	while(temp-(bis+365)>0)
 	{
 		anhos++;
 		temp-=366;
 	}
+
+    int temp2=semanas;
+    while(temp2-4>4*anhos)
+    {
+        meses++;
+        temp2-=4;
+    }
 	anhos+=temp/365;
 	temp=anhos;
 
     //Output
-	cout<<"Numero de dias:    "       <<Dias      <<endl
-		<<"Numero de semanas: "       <<semanas   <<endl
-		<<"Numero de meses:   "                   <<endl
-		<<"Numero de anhos:    "      <<anhos     <<endl<<endl
-		<<"\nSegundos transcurridos: "<< segundos <<endl
-		<<"\nMinutos transcurridos "  << minutos  <<endl
-		<<"\nHoras transcurridas: "   << horas    <<endl;
+	cout<<"Numero de dias:    "       << Dias      <<endl
+		<<"Numero de semanas: "       << semanas   <<endl
+		<<"Numero de meses:   "       << meses     <<endl
+		<<"Numero de anhos:    "      << anhos2    <<endl<<endl
+		<<"\nSegundos transcurridos: "<< segundos  <<endl
+		<<"\nMinutos transcurridos "  << minutos   <<endl
+		<<"\nHoras transcurridas: "   << horas     <<endl;
 
 	return 0;
 }
