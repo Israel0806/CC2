@@ -110,7 +110,7 @@ int main (){
 	}
 
     int temp2=semanas;
-    while(temp2-4>4*anhos)
+    while(temp2-4>4.13*anhos)
     {
         meses++;
         temp2-=4;

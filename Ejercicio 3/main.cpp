@@ -3,7 +3,7 @@
 #include <vector>
 using namespace std;
 
-void calcular(int &a, int &b)
+void ComprobarMOD(int &a, int &b)
 {
     bool cond=false;
         if(a<-b)
@@ -24,7 +24,7 @@ void calcular(int &a, int &b)
         }
 }
 
-int dividir(int &a, int &b)
+int Euclides(int &a, int &b)
 {
 	if(a==0)
 		return a;
@@ -33,7 +33,7 @@ int dividir(int &a, int &b)
 	b=d;
 	if(b<0)
 		b*=-1;
-	return dividir(a,b);
+	return Euclides(a,b);
 }
 
 void inversa(int a, int b)
@@ -56,7 +56,7 @@ void inversa(int a, int b)
     while(x!=n+1)
     {
         temp=p[x-2]-(q[x-2]*p[x-1]);
-        calcular(temp,c);
+        comprobarMOD(temp,c);
         cout<<"P"<<x<<": "<<temp<<endl;
         p.push_back(temp);
         x++;
@@ -77,14 +77,14 @@ public:
     void setA(int a) { this->a=a; }
     void setB(int b) { this->b=b; }
 
-    friend void calcular(int &a, int &b);
+    friend void comprobarMOD(int &a, int &b);
 
     friend Modulo operator +(Modulo A, Modulo B)
     {
         Modulo c;
         c.a=A.a+B.a;
         c.b=A.b;
-        calcular(c.a,c.b);
+        comprobarMOD(c.a,c.b);
         return c;
     }
     friend Modulo operator -(Modulo A, Modulo B)
@@ -92,7 +92,7 @@ public:
         Modulo c;
         c.a=A.a-B.a;
         c.b=A.b;
-        calcular(c.a,c.b);
+        comprobarMOD(c.a,c.b);
         return c;
     }
     friend Modulo operator *(Modulo A, Modulo B)
@@ -100,13 +100,13 @@ public:
         Modulo c;
         c.a=A.a*B.a;
         c.b=A.b;
-        calcular(c.a,c.b);
+        comprobarMOD(c.a,c.b);
         return c;
     }
     void Inverso()
     {
         Modulo m(a,b);
-        dividir(m.a,m.b);
+        Euclides(m.a,m.b);
         if(m.b==1)
         {
             inversa(a,b);
@@ -119,7 +119,7 @@ int main()
 {
     Modulo a(-2,6), b(40,6);
     int c=a.getA(), d=a.getB();
-    calcular(c,d);
+    comprobarMOD(c,d);
     a.setA(c);
     a.setB(d);
     cout<<a.getA()<<"mod"<<a.getB()<<endl;
