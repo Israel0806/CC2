@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <math.h>
+#include <fstream>
+#include <string.h>
 
 using namespace std;
 
@@ -58,11 +60,9 @@ int inversa(int a, int b)
     {
         temp=p[x-2]-(q[x-2]*p[x-1]);
         comprobarMOD(temp,c);
-        cout<<"P"<<x<<": "<<temp<<endl;
         p.push_back(temp);
         x++;
     }
-    cout<<"Inversa: "<<p[x-1]<<" mod "<<c<<endl;
     return p[x-1];
 }
 
@@ -92,14 +92,144 @@ public:
     }
 };
 
-
 int main()
 {
-    int a,b,c;
-    cout<<"Ingrese un numero\n"; cin>>a;
-    cout<<"Ingrese el modulo\n"; cin>>b;
-    Modulo A(a,b);
-    c=A.Inverso();
-    cout<<c<<endl;
+    int k1=29, k2=53;
+
+    ifstream readOut;
+    readOut.open("prueba.txt", ios::out );
+
+    ofstream New;
+    New.open("temp.txt", ios::in);
+
+    if (readOut.is_open() and New.is_open() )
+      {
+        string line;
+        while ( getline (readOut,line) )
+        {
+            int mod=256;
+            char p[ line.size() ];
+            strcpy( p,line.c_str() );
+
+            for(unsigned int i=0;i<line.size();i++)
+            {
+                cout<<"line: "  <<p[i]            <<endl
+                    <<int(p[i]) <<" mod 256"      <<endl;
+                int x= int(p[i]);
+                x*=k1;
+                cout<<"x: "<<x<<endl;
+                comprobarMOD(x,mod);
+
+                cout<<"Inverso: "<<x<<" mod 256" <<endl<<endl;
+                New << char(x);
+
+            }
+            New.close();
+        }
+        readOut.close();
+      }
+    else
+    {
+        cout<<"error\n";
+    }
+
+    ifstream readOut2;
+    readOut2.open("temp.txt", ios::out );
+
+    ofstream New2;
+    New2.open("temp2.txt", ios::in);
+
+    if (readOut2.is_open() and New2.is_open() )
+      {
+        string line;
+        while ( getline (readOut2,line) )
+        {
+            int mod=256;
+            char p[ line.size() ];
+            strcpy( p,line.c_str() );
+
+            for(unsigned int i=0;i<line.size();i++)
+            {
+                cout<<"line: "  <<p[i]            <<endl
+                    <<int(p[i]) <<" mod 256"      <<endl;
+                int x= int(p[i]);
+                x*=k2;
+                cout<<"x: "<<x<<endl;
+                comprobarMOD(x,mod);
+
+                cout<<"Inverso: "<<x<<" mod 256" <<endl<<endl;
+                New2 << char(x);
+
+            }
+            New2.close();
+        }
+        readOut2.close();
+      }
+    else
+    {
+        cout<<"error\n";
+    }
+
+
     return 0;
 }
+
+
+/*
+                    ifstream readOut;
+                    readOut.open("codigos.txt", ios::out );
+
+                    ofstream Modify;
+                    Modify.open("codigos.txt", ios::in);
+
+                    if (readOut.is_open() and Modify.is_open())
+                      {
+                        int a=0;
+                        string line;
+                        while ( getline (readOut,line) )
+                        {
+                            a+=line.size()+1;
+                            if(line=="codigo2")
+                            {
+                                getline(readOut,line);
+                                a+=line.size();
+                                p2=atoi(line.c_str());
+                                p2++;
+                                cout << p2 << '\n';
+                                Modify.seekp(a+2);
+                                Modify <<p2;
+                                Modify.close();
+                                break;
+                            }
+                        }
+                        readOut.close();
+                      }
+                    else
+                    {
+                        cout<<"error\n";
+                    }
+
+
+
+        ifstream readOut;
+        readOut.open("Impresoras.txt");
+        ofstream readIn;
+        readIn.open("temp.txt");
+        while ( readOut >> codigo >> nombre >> categoria >>  precio >> cantidad >> tipo >> caracteristicas >> tamanho )
+        {
+            if ( miCodigo != codigo)
+            {
+                readIn<< codigo << ' ' << nombre << ' ' << categoria << ' ' << precio << ' ' << cantidad << ' ' << tipo << ' ' << caracteristicas << ' ' << tamanho <<endl;            }
+            else
+            {
+                readIn<< codigo << ' ' << nombre << ' ' << categoria << ' ' << precio << ' ' << stock << ' ' << tipo << ' ' << caracteristicas << ' ' << tamanho <<endl;            }
+    }
+    readIn.close();
+    readOut.close();
+    remove("Impresoras.txt");
+    rename("temp.txt","Impresoras.txt");
+    cout <<endl<<endl<<endl;
+
+
+*/
+
