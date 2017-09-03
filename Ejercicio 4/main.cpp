@@ -3,6 +3,7 @@
 #include <math.h>
 #include <fstream>
 #include <string.h>
+#include <windows.h>
 
 using namespace std;
 
@@ -32,6 +33,7 @@ int Euclides(int &a, int &b)
 	if(a==0)
 		return a;
 	int d=a;
+	cout<<"a: "<<a<<endl<<"b: "<<b<<endl<<endl;
 	a=b%a;
 	b=d;
 	if(b<0)
@@ -88,87 +90,124 @@ public:
         {
             c=inversa(a,b);
         }
+        else
+        {
+            cout<<"No tiene inversa"<<endl;
+        }
         return c;
     }
 };
 
 int main()
 {
-    int k1=29, k2=53;
+    system("title, Criptografia");
+    HANDLE h;
+    h=GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(h, 10);
+    int k1, k2=256;
+    string txt;
 
-    ifstream readOut;
-    readOut.open("prueba.txt", ios::out );
+    cout<<"Ingrese la clave privada---> "; cin>> k1;
+    int temp=k1;
+    cout<<"k1: "<<k1<<endl<<"k2: "<<k2<<endl;
+    Euclides(temp,k2);
+    cout<<"k1: "<<k1<<endl<<"k2: "<<k2<<endl;
 
-    ofstream New;
-    New.open("temp.txt", ios::in);
+    if(k2==1)
+    {
+        k2=inversa(k1,256);
+        ifstream readOut;
+        readOut.open("prueba.txt", ios::out );
 
-    if (readOut.is_open() and New.is_open() )
-      {
-        string line;
-        while ( getline (readOut,line) )
-        {
-            int mod=256;
-            char p[ line.size() ];
-            strcpy( p,line.c_str() );
+        ofstream New;
+        New.open("temp.txt", ios::in | ios::app );
 
-            for(unsigned int i=0;i<line.size();i++)
+        cout<<"\n\n\n \t\t\t\t\t\t      Nombre: \n\n";
+        if (readOut.is_open() and New.is_open() )
+          {
+            string line;
+            while ( getline (readOut,line) )
             {
-                cout<<"line: "  <<p[i]            <<endl
-                    <<int(p[i]) <<" mod 256"      <<endl;
-                int x= int(p[i]);
-                x*=k1;
-                cout<<"x: "<<x<<endl;
-                comprobarMOD(x,mod);
+                int mod=256;
+                char p[ line.size() ];
+                strcpy( p,line.c_str() );
+                for(unsigned int i=0;i<line.size()+1;i++)
+                {
+                    //cout<<"p["<<i<<"]="<<p[i]<<endl;
+                    //cout<<"line: "  <<p[i]            <<endl
+    //                    <<int(p[i]) <<" mod 256"      <<endl;
+                    if(p[i]!=NULL)
+                    {
 
-                cout<<"Inverso: "<<x<<" mod 256" <<endl<<endl;
-                New << char(x);
+                    int x= int(p[i]);
+                    x*=k1;
+                    //cout<<"x: "<<x<<endl;
+                    comprobarMOD(x,mod);
 
+                    cout<<char(x);
+
+                    //cout<<"Inverso: "<<x<<" mod 256" <<endl<<endl;
+                    New << char(x);
+                    }
+                    else
+                    {
+                        cout<<"entro\n";
+                        New <<'\n' ;
+                    }
+
+                }
+                New.close();
             }
-            New.close();
+            readOut.close();
+          }
+        else
+        {
+            cout<<"ERROR.\n";
         }
-        readOut.close();
-      }
+        cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+
+        ifstream readOut2;
+        readOut2.open("temp.txt", ios::out );
+
+        ofstream New2;
+        New2.open("temp2.txt", ios::in | ios::app );
+
+        if (readOut2.is_open() and New2.is_open() )
+          {
+            string line;
+            while ( getline (readOut2,line) )
+            {
+                int mod=256;
+                char p[ line.size() ];
+                strcpy( p,line.c_str() );
+
+                for(unsigned int i=0;i<line.size();i++)
+                {
+                    //cout<<"line: "  <<p[i]            <<endl
+                    //    <<int(p[i]) <<" mod 256"      <<endl;
+                    int x= int(p[i]);
+                    x*=k2;
+                    //cout<<"x: "<<x<<endl;
+                    comprobarMOD(x,mod);
+
+                    //cout<<"Inverso: "<<x<<" mod 256" <<endl<<endl;
+                    New2 << char(x);
+                }
+                New2.close();
+            }
+            readOut2.close();
+          }
+        else
+        {
+            cout<<"error\n";
+        }
+
+    }
     else
     {
-        cout<<"error\n";
+        cout<<"No es posible crear una clave publica. "<<endl;
     }
 
-    ifstream readOut2;
-    readOut2.open("temp.txt", ios::out );
-
-    ofstream New2;
-    New2.open("temp2.txt", ios::in);
-
-    if (readOut2.is_open() and New2.is_open() )
-      {
-        string line;
-        while ( getline (readOut2,line) )
-        {
-            int mod=256;
-            char p[ line.size() ];
-            strcpy( p,line.c_str() );
-
-            for(unsigned int i=0;i<line.size();i++)
-            {
-                cout<<"line: "  <<p[i]            <<endl
-                    <<int(p[i]) <<" mod 256"      <<endl;
-                int x= int(p[i]);
-                x*=k2;
-                cout<<"x: "<<x<<endl;
-                comprobarMOD(x,mod);
-
-                cout<<"Inverso: "<<x<<" mod 256" <<endl<<endl;
-                New2 << char(x);
-
-            }
-            New2.close();
-        }
-        readOut2.close();
-      }
-    else
-    {
-        cout<<"error\n";
-    }
 
 
     return 0;
