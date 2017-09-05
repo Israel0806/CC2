@@ -154,10 +154,9 @@ int main()
                         cout<<"entro\n";
                         New <<'\n' ;
                     }
-
                 }
-                New.close();
             }
+            New.close();
             readOut.close();
           }
         else
@@ -181,25 +180,33 @@ int main()
                 char p[ line.size() ];
                 strcpy( p,line.c_str() );
 
-                for(unsigned int i=0;i<line.size();i++)
+                for(unsigned int i=0;i<line.size()+1;i++)
                 {
                     //cout<<"line: "  <<p[i]            <<endl
                     //    <<int(p[i]) <<" mod 256"      <<endl;
-                    int x= int(p[i]);
-                    x*=k2;
-                    //cout<<"x: "<<x<<endl;
-                    comprobarMOD(x,mod);
+                    if(p[i]!=NULL)
+                    {
+                        int x= int(p[i]);
+                        x*=k2;
+                        //cout<<"x: "<<x<<endl;
+                        comprobarMOD(x,mod);
 
-                    //cout<<"Inverso: "<<x<<" mod 256" <<endl<<endl;
-                    New2 << char(x);
+                        //cout<<"Inverso: "<<x<<" mod 256" <<endl<<endl;
+                        New2 << char(x);
+                    }
+                    else
+                    {
+                        cout<<"entro\n";
+                        New2 <<'\n';
+                    }
                 }
-                New2.close();
             }
+            New2.close();
             readOut2.close();
           }
         else
         {
-            cout<<"error\n";
+            cout<<"ERROR.\n";
         }
 
     }
