@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1505593353 source:c:\users\israe\desktop\repositorios\cc2\ejercicio 6\bubble sort\main.cpp
+	<iostream>
+	<stdlib.h>
+	<time.h>
+
